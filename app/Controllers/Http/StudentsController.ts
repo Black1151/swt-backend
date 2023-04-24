@@ -15,6 +15,17 @@ export default class StudentsController {
     }
   }
 
+  // Fetch one student
+  public async getStudent({ params, response }: HttpContextContract) {
+    try {
+      const student = await Student.find(params.id)
+        response.status(200).send(student)
+    } catch (error) {
+      console.log(error)
+      response.status(500).send({ message: 'Error fetching student.' })
+    }
+  }
+
   public async create({}: HttpContextContract) {}
 
   // Add a new goal for a student
@@ -23,7 +34,7 @@ public async addGoal({ params, request, response }: HttpContextContract) {
     const student = await Student.find(params.id)
     if (student) {
       const newGoal : Goal = request.only(['title', 'date', 'status', 'evidence'])
-      student.goals.push(newGoal) // Use goals directly as an array
+      student.goals.push(newGoal) 
       await student.save()
       response.status(200).send(student)
   } else {
@@ -43,7 +54,7 @@ public async updateGoalStatus({ params, request, response }: HttpContextContract
     const newStatus = request.input('status')
 
     if (student) {
-      if (student.goals[goalIndex]) { // Use goals directly as an array
+      if (student.goals[goalIndex]) { 
         student.goals[goalIndex].status = newStatus
         await student.save()
         response.status(200).send(student)

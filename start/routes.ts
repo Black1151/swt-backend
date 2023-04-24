@@ -21,10 +21,16 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
+  //student records
   Route.get('/students', 'StudentsController.index')
+  Route.get('/students', 'StudentsController.getStudent')
   Route.post('/students', 'StudentsController.store')
-}).prefix('/api')
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+  // behaviour score
+  Route.put('/students/:id/behavior_score', 'StudentsController.updateBehaviorScore')
+
+  // Goals
+  Route.post('/students/:id/goals', 'StudentsController.addGoal')
+  Route.put('/students/:id/goals/:goal_index/status', 'StudentsController.updateGoalStatus')
+  Route.post('/students/:id/goals/:goal_index/evidence', 'StudentsController.addEvidence')
+}).prefix('/api')
