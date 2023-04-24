@@ -33,22 +33,17 @@ const databaseConfig: DatabaseConfig = {
     | npm i mysql2
     |
     */
-    mysql: {
-      client: 'mysql2',
+    pg: {
+      client: 'pg',
       connection: {
-        host: Env.get('MYSQL_HOST'),
-        port: Env.get('MYSQL_PORT'),
-        user: Env.get('MYSQL_USER'),
-        password: Env.get('MYSQL_PASSWORD', ''),
-        database: Env.get('MYSQL_DB_NAME'),
-      },
-      migrations: {
-        naturalSort: true,
+        host: Env.get('DB_HOST', 'localhost'),
+        port: Number(Env.get('DB_PORT', 5432)),
+        user: Env.get('DB_USER', 'postgres'),
+        password: Env.get('DB_PASSWORD', ''),
+        database: Env.get('DB_NAME', 'adonis'),
       },
       healthCheck: false,
-      debug: false,
     },
-
   }
 }
 
