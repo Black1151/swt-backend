@@ -3,6 +3,8 @@ import Student, { Goal, Evidence } from 'App/Models/Student'
 
 export default class StudentsController {
 
+  
+  // Fetch all students
   public async index({ response }: HttpContextContract) {
     try {
       const students = await Student.all()
@@ -24,7 +26,7 @@ public async addGoal({ params, request, response }: HttpContextContract) {
       student.goals.push(newGoal) // Use goals directly as an array
       await student.save()
       response.status(200).send(student)
-    } else {
+  } else {
       response.status(404).send({ message: 'Student not found.' })
     }
   } catch (error) {
