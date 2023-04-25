@@ -20,16 +20,16 @@ export default class Student extends BaseModel {
   public id: number
 
   @column()
-  public firstName: string
+  public first_name: string
 
   @column()
-  public lastName: string
+  public last_name: string
 
   @column()
   public year: number
 
   @column()
-  public behaviorScore: number
+  public behavior_score: number
 
   @hasMany(() => Goal)
   public goals: HasMany<typeof Goal>

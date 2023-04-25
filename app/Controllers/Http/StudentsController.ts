@@ -1,24 +1,3 @@
-// {
-//   "first_name": "John",
-//   "last_name": "Doe",
-//   "year": 1,
-//   "behavior_score": 5,
-//   "goals": [
-//     {
-//       "title": "Goal 1",
-//       "date": "2023-04-24",
-//       "status": "in progress",
-//       "evidence": [
-//         {
-//           "date": "2023-04-23",
-//           "name": "Teacher",
-//           "image_link": "https://example.com/image1.jpg"
-//         }
-//       ]
-//     }
-//   ]
-// }
-
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Student, { IEvidence } from 'App/Models/Student'
 import Goal from 'App/Models/Goal';
@@ -74,6 +53,27 @@ export default class StudentsController {
     }
   } 
 
+  // Get all goals for a specific student
+  public async getAllGoals({ params, response }: HttpContextContract) {
+
+    console.log("GET ALL GOALS");
+
+    try {
+      const student = await Student.find(params.id)
+      if (student) {
+        await student.load('goals')
+        console.log(student.goals)
+        response.status(200).send(student.goals)
+      } else {
+        response.status(404).send({ message: 'Student not found.' })
+      }
+    } catch (error) {
+      console.error(error)
+      response.status(500).send({ message: 'Error fetching goals.' })
+    }
+  }
+
+
   // Add a new goal for a student
   public async addGoal({ params, request, response }: HttpContextContract) {
     try {
@@ -83,7 +83,6 @@ export default class StudentsController {
         newGoal.title = request.only(['title']).title;
         newGoal.status = 'In progress';
         await student.related('goals').save(newGoal);
-        
         response.status(200).send(student);
       } else {
         response.status(404).send({ message: 'Student not found.' });
