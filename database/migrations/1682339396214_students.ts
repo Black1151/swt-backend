@@ -10,7 +10,6 @@ export default class Students extends BaseSchema {
       table.string('last_name', 255).notNullable()
       table.integer('year').notNullable()
       table.integer('behavior_score').notNullable()
-      table.json('goals')
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
       table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })

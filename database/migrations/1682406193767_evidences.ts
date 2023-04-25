@@ -7,7 +7,6 @@ export default class Evidence extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('goal_id').unsigned().references('id').inTable('goals').onDelete('CASCADE')
-      table.string('date', 255).notNullable()
       table.string('comment', 255).notNullable()
       table.string('staff_member', 255).notNullable()
       table.string('image_link', 255)
