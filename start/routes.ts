@@ -23,7 +23,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   //student records
   Route.get('/students', 'StudentsController.index')
-  Route.get('/students', 'StudentsController.getStudent')
+  Route.get('/students/:id', 'StudentsController.getStudent')
+
   Route.post('/students', 'StudentsController.store')
 
   // behaviour score
