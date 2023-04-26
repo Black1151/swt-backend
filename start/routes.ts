@@ -36,5 +36,5 @@ Route.group(() => {
   Route.put('/students/goals/:id/status', 'StudentsController.updateGoalStatus')
 
   // Evidence for goals
-  Route.post('/students/:id/goals/:goal_index/evidence', 'StudentsController.addEvidence')
+  Route.post('/students/goals/evidence/:id', 'StudentsController.addEvidence')
 }).prefix('/api')
