@@ -22,7 +22,7 @@ export default class StudentsController {
       const student = await Student.find(params.id)
       response.status(200).send(student)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       response.status(500).send({ message: 'Error fetching student.' })
     }
   }
@@ -30,7 +30,6 @@ export default class StudentsController {
 
   // Add a student
   public async store({ request, response }: HttpContextContract) {
-    console.log(request.body())
     try {
       const data = request.only([
         'first_name',
@@ -43,8 +42,6 @@ export default class StudentsController {
       if (!data.goals) {
         data.goals = JSON.stringify([])
       }
-  
-      console.log(data)
       const student = await Student.create(data)
       response.status(201).send(student)
     } catch (error) {
@@ -56,13 +53,10 @@ export default class StudentsController {
   // Get all goals for a specific student
   public async getAllGoals({ params, response }: HttpContextContract) {
 
-    console.log("GET ALL GOALS");
-
     try {
       const student = await Student.find(params.id)
       if (student) {
         await student.load('goals')
-        console.log(student.goals)
         response.status(200).send(student.goals)
       } else {
         response.status(404).send({ message: 'Student not found.' })
