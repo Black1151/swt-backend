@@ -31,8 +31,8 @@ Route.group(() => {
   Route.put('/students/:id/behavior_score', 'StudentsController.updateBehaviourScore')
 
   // Goals
-  Route.get('/students/:id/goals', 'StudentsController.getAllGoals')   
-  Route.post('/students/:id/goals', 'StudentsController.addGoal')
+  Route.get('/students/goals/:id', 'StudentsController.getAllGoals')   
+  Route.post('/students/goals/:id', 'StudentsController.addGoal')
   Route.put('/students/goals/:id/status', 'StudentsController.updateGoalStatus')
 
   // Evidence for goals
