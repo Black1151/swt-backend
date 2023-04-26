@@ -96,29 +96,25 @@ export default class StudentsController {
   
 ///// Needs update after new approach applied to add goal
 
-// Update the status of a goal for a student
-// public async updateGoalStatus({ params, request, response }: HttpContextContract) {
-//   try {
-//     const student = await Student.find(params.id)
-//     const goalIndex = request.input('goal_index')
-//     const newStatus = request.input('status')
+//Update the status of a goal for a student
+public async updateGoalStatus({ params, request, response }: HttpContextContract) {
+  try {
+    const goal = await Goal.find(params.id)
+    const newStatus = request.input('status')
 
-//     if (student) {
-//       if (student.goals[goalIndex]) { 
-//         student.goals[goalIndex].status = newStatus
-//         await student.save()
-//         response.status(200).send(student)
-//       } else {
-//         response.status(404).send({ message: 'Goal not found.' })
-//       }
-//     } else {
-//       response.status(404).send({ message: 'Student not found.' })
-//     }
-//   } catch (error) {
-//     console.error(error)
-//     response.status(500).send({ message: 'Error updating goal status.' })
-//   }
-// }
+    if (goal) {
+      goal.status = newStatus
+      await goal.save()
+      response.status(200).send({ message: 'Goal status updated.' }) // changed the message
+    } else {
+      response.status(404).send({ message: 'Goal not found.' }) // changed the message
+    }
+  } catch (error) {
+    console.error(error)
+    response.status(500).send({ message: 'Error updating goal status.' })
+  }
+}
+
 
 
 ///// Needs update after new approachapplied to add goal
